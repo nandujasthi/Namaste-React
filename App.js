@@ -10,6 +10,4 @@ const heading = React.createElement("div", { id: "parent", dataattr: "test" }, [
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log(heading);
-console.log(root);
 root.render(heading);
