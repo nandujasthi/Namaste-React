@@ -129,3 +129,17 @@ body {
 .m-t-24 {
   margin-top: 24px;
 }
+
+.RestMenu {
+  padding: 20px;
+}
+
+.userDetails {
+  padding: 10px;
+  border: 2px dashed #ccc;
+  margin: 5px 0px;
+}
+
+.page-padding {
+  padding: 10px;
+}
