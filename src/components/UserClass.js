@@ -7,10 +7,21 @@ class UserClass extends React.Component {
       count: 0,
       count2: 2,
     };
+    console.log("Constructor of About Loaded");
+  }
+  componentDidMount() {
+    console.log("Component Mounted");
+  }
+  componentDidUpdate() {
+    console.log("Loads when the component is updated");
+  }
+  componentWillUnmount() {
+    console.log("This will trigger when component is changed ");
   }
   render() {
     const { name, location } = this.props;
     const { count, count2 } = this.state;
+    console.log("render of About Loaded");
     return (
       <div className="userDetails">
         <h1>Count : {count}</h1>
