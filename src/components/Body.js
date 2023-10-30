@@ -3,6 +3,7 @@ import Search from "./Search";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   let [listofRests, setListofRests] = useState([]);
@@ -23,6 +24,10 @@ const Body = () => {
       jsonData.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
     );
   };
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <h1>Looks like you are not connected to internet</h1>;
+  }
   if (listofRests.length === 0) {
     return <Shimmer />;
   }
