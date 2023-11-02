@@ -1,10 +1,12 @@
 import Shimmer from "./Shimmer";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
+  const [accIndex, setAccIndex] = useState(0);
   const restInfo = useRestaurantMenu(resId);
 
   if (restInfo === null) return <Shimmer />;
@@ -15,23 +17,27 @@ const RestaurantMenu = () => {
     restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
       ?.card;
 
+  const categories =
+    restInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR.cards.filter(
+      (c) =>
+        c.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
   return (
-    <div className="RestMenu">
-      <h1>Name : {name}</h1>
-      <h2>
+    <div className="RestMenu text-center">
+      <h1 className="font-bold text-xl my-3">Name : {name}</h1>
+      <h2 className="font-semibold text-lg">
         {cuisines.join(", ")} - {costForTwoMessage} - {avgRating} Stars
       </h2>
-      <h2>Menu</h2>
-      <ul>
-        {itemCards.map((item) => (
-          <li key={item.card.info.id}>
-            {item.card.info.name} -{" "}
-            <strong>
-              ₹{item.card.info.defaultPrice / 100 || item.card.info.price / 100}
-            </strong>
-          </li>
-        ))}
-      </ul>
+
+      {categories.map((category, index) => (
+        <RestaurantCategory
+          key={category.card.card.title}
+          catData={category.card.card}
+          showAcc={index === accIndex ? true : false}
+          setAccIndex={() => setAccIndex(index)}
+        />
+      ))}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
@@ -8,15 +8,27 @@ import Contact from "./components/Contact";
 import Body from "./components/Body";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./utils/UserContext";
 
 const InstaMart = lazy(() => import("./components/InstaMart"));
 
 const AppComponent = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    const UserData = {
+      name: "Nandu Jasthi",
+    };
+    setUserName(UserData.name);
+  });
+
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedinUser: userName, setUserName }}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
