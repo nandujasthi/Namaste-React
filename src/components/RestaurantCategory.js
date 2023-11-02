@@ -3,7 +3,7 @@ import ItemCards from "./ItemCards";
 
 const RestaurantCategory = ({ catData, showAcc, setAccIndex }) => {
   const collapseAcc = () => {
-    showAcc ? setAccIndex(null) : setAccIndex(index);
+    setAccIndex();
   };
   return (
     <div className="mx-auto w-6/12 bg-gray-100 shadow-md my-2 p-3">
